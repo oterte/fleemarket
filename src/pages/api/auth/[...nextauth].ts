@@ -35,5 +35,19 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
+  callbacks: {
+    // 이 데이터가 아래 token으로 들어감
+    async jwt({ token, user }) {
+      console.log('token', token)
+      console.log('user', user)
+      return { ...token, ...user };
+    },
+
+    // 세션 안에 user 정보가 들어감
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
+  },
 };
 export default NextAuth(authOptions);
