@@ -21,7 +21,12 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = { id: "1", name: "J Smith", email: "jsmith@example.com" };
+        const user = {
+          id: "1",
+          name: "J Smith",
+          email: "jsmith@example.com",
+          role: "User",
+        };
 
         if (user) {
           return user;
@@ -35,11 +40,15 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    maxAge: 30 * 24 * 60 * 60,
+  },
   callbacks: {
     // 이 데이터가 아래 token으로 들어감
     async jwt({ token, user }) {
-      console.log('token', token)
-      console.log('user', user)
+      console.log("token", token);
+      console.log("user", user);
       return { ...token, ...user };
     },
 
