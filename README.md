@@ -5,3 +5,6 @@
 
 
 2. prisma 설치 및 railway를 이용하여 db 연결
+
+
+3. React-hook-form을 이용하여 input 생성 -> 유효성 체크에 편리하고, 깔끔한 소스코드, 그리고 렌더링 최적화가 가능

@@ -44,6 +44,9 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.JWT_SECRET,
     maxAge: 30 * 24 * 60 * 60,
   },
+  pages: {
+    signIn: "/auth/login",
+  },
   callbacks: {
     // 이 데이터가 아래 token으로 들어감
     async jwt({ token, user }) {
