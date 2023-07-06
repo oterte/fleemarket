@@ -28,6 +28,9 @@
         "./src/*"
       ]
     },
+    "types": [
+      "kakao.maps.d.ts"
+    ],
     "strictNullChecks": true
   },
   "include": [
