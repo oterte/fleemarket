@@ -7,11 +7,14 @@ import Input from "@/components/Input";
 import { categoires } from "@/components/categories/Categories";
 import CategoryInput from "@/components/categories/CategoryInput";
 import dynamic from "next/dynamic";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const ProductUploadPage = () => {
-  const [isLoading, setIsLoading] = useState();
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -41,7 +44,19 @@ const ProductUploadPage = () => {
     ssr: false,
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {};
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
+    // 생성한 상품의 상세페이지로 이동
+    axios.post('/api/products', data)
+      .then((res) => {
+        router.push(`/products/${res.data.id}`)
+      })
+      .catch((err) => {
+        console.error(err)
+      }).finally(() => {
+        setIsLoading(false)
+      })
+  };
 
   // imageSrc를 업데이트 하기 위한 함수
   const setCustomValue = (id: string, value: any) => {
