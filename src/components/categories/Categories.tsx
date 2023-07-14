@@ -1,8 +1,11 @@
+"use client";
 import React from "react";
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
 import { GiBoatFishing, GiIsland, GiWindmill } from "react-icons/gi";
 import { MdOutlineVilla } from "react-icons/md";
 import { FaSkiing } from "react-icons/fa";
+import { useSearchParams } from "next/navigation";
+import CategoryBox from "./CategoryBox";
 export const categoires = [
   {
     label: "디지털기기",
@@ -55,7 +58,22 @@ export const categoires = [
 ];
 
 const Categories = () => {
-  return <div>Categories</div>;
+  const param = useSearchParams();
+  const category = param?.get("category");
+
+  return (
+    <div className="flex flex-row items-center justify-between pt-4 overflow-x-auto">
+      {categoires.map((item) => (
+        <CategoryBox
+          key={item.label}
+          label={item.label}
+          path={item.path}
+          icon={item.icon}
+          selected={category === item.path}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default Categories;
