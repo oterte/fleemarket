@@ -12,6 +12,9 @@ interface HomeProps {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
+  const page = searchParams?.page;
+  const pageNum = typeof page === "string" ? Number(page) : 1;
+
   const products = await getProducts(searchParams);
   const currentUser = await getCurrentUser();
   console.log(products);
@@ -21,7 +24,7 @@ export default async function Home({ searchParams }: HomeProps) {
       <Categories />
 
       {products?.data.length === 0 ? (
-        <EmptyState showReset/>
+        <EmptyState showReset />
       ) : (
         <>
           <div className="grid grid-cols-1 gap-8 pt-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
