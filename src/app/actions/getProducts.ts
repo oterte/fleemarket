@@ -4,8 +4,8 @@ export interface ProductsParams {
   latitude?: number;
   longitude?: number;
   category?: string;
-  page?:number
-  skip?:number
+  page?: number;
+  skip?: number;
 }
 export default async function getProducts(params: ProductsParams) {
   try {
@@ -30,6 +30,10 @@ export default async function getProducts(params: ProductsParams) {
       };
     }
 
+    const totalItems = await prisma.product.count({
+      where: query,
+    });
+
     const products = await prisma.product.findMany({
       where: query,
       orderBy: {
@@ -39,6 +43,7 @@ export default async function getProducts(params: ProductsParams) {
 
     return {
       data: products,
+      totalItems,
     };
   } catch (error: any) {
     throw new Error(error);
