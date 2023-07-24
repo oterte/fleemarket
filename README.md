@@ -52,3 +52,12 @@
     1. client 요청 -> useEffect로 변경이 일어날 때마다 axios 요청 보내기
     2. route에서 요청 처리 -> 모든 유저를 가져오고 include해서 해당 유저의 conversation의 데이터를 배열안에 다 나열
     -> 그리고 그 conversation 안에서 include해서 모든 message들을 배열안에 넣어주고 user 데이터도 넣어줌
+
+
+9. SWR 적용
+    1. SWR이란?
+        - 데이터를 가져오기 위한 React Hook 라이브러리. 
+        - SWR은 원격 데이터를 가져올 때 캐싱된 데이터가 있으면 그 데이터를 먼저 반환(stale)한 다음 가져오기 요청을 보내고 마지막으로 최신 데이터와 함께 제공하는 라이브러리.
+        - useSWR을 이용하여 캐싱한다. 이 훅은 인자로 key와 fetcher가 있다.
+        -> 첫번째 인자인 key에는 api url이면서 캐싱할 때 사용되는 key다. key 값을 캐싱하는 것
+        - 채팅 데이터를 가져오기 위해 SWR을 사용할것
