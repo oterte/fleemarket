@@ -44,3 +44,11 @@
         HTTP 통신 방법과 Websocket의 차이점
         1. Websocket은 처음에 접속 확립(Handshake)를 위해서만 HTTP 프로토콜을 이용하고 그 이후부터는 독립적인 프로토콜 ws를 사용하게 된다.
         2. HTTP 요청은 응답이 온 후 연결이 끊기게 되지만, Websockey은 핸드쉐이크가 완료되고 임의로 연결을 끊기 전까진 계속 연결되어 있다.
+
+
+
+
+8. 채팅 데이터 생성
+    1. client 요청 -> useEffect로 변경이 일어날 때마다 axios 요청 보내기
+    2. route에서 요청 처리 -> 모든 유저를 가져오고 include해서 해당 유저의 conversation의 데이터를 배열안에 다 나열
+    -> 그리고 그 conversation 안에서 include해서 모든 message들을 배열안에 넣어주고 user 데이터도 넣어줌
