@@ -1,10 +1,12 @@
 "use client";
 
+import Contacts from "@/components/chat/Contacts";
 import { TUserWithChat } from "@/types";
 import { User } from "@prisma/client";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import useSWR from "swr";
+
 interface ChatClientProps {
   currentUser?: User | null;
 }
@@ -43,7 +45,12 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
       <div className="grid grid-cols-[1fr] md:grid-cols-[300px_1fr]">
         <section className={`md:flex ${layout && "hidden"}`}>
           {/* 나에게 메시지 보낸 유저 목록 컴포넌트 */}
-          콘택트
+          <Contacts 
+            users={users}
+            currentUser={currentUserWithMessage}
+            setLayout={setLayout}
+            setReceiver={setReceiver}
+          />
         </section>
         <section className={`md:flex ${!layout && "hidden"}`}>
           {/* 현재 대화중인 유저 컴포넌트 */}
