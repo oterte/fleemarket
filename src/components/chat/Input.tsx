@@ -35,6 +35,8 @@ const Input = ({ receiverId, currentUserId }: InputProps) => {
         className="w-full text-base outline-none"
         type="text"
         placeholder="메시지를 작성해주세요"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
       />
       <div className="text-2xl text-gray-200 cursor-pointer">
         <IoImageOutline />
