@@ -27,10 +27,8 @@ const RegisterPage = () => {
     setIsLoading(true);
     try {
       const { data } = await axios.post("/api/regist", body);
-      console.log(data);
       router.push("/auth/login");
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoading(false);
     }

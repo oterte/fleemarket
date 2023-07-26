@@ -1,5 +1,6 @@
 "use client";
 
+import Chat from "@/components/chat/Chat";
 import Contacts from "@/components/chat/Contacts";
 import { TUserWithChat } from "@/types";
 import { User } from "@prisma/client";
@@ -32,7 +33,6 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
     refreshInterval: 1000,
   });
 
-  console.log(users);
 
   const currentUserWithMessage = users?.find(
     (user: TUserWithChat) => user.email === currentUser?.email
@@ -45,7 +45,7 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
       <div className="grid grid-cols-[1fr] md:grid-cols-[300px_1fr]">
         <section className={`md:flex ${layout && "hidden"}`}>
           {/* 나에게 메시지 보낸 유저 목록 컴포넌트 */}
-          <Contacts 
+          <Contacts
             users={users}
             currentUser={currentUserWithMessage}
             setLayout={setLayout}
@@ -54,7 +54,12 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
         </section>
         <section className={`md:flex ${!layout && "hidden"}`}>
           {/* 현재 대화중인 유저 컴포넌트 */}
-          채팅
+          <Chat 
+            currentUser={currentUserWithMessage}
+            receiver={receiver}
+            setLayout={setLayout}
+
+          />
         </section>
       </div>
     </main>
