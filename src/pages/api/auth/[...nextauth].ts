@@ -58,14 +58,15 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // 이 데이터가 아래 token으로 들어감
     async jwt({ token, user }) {
-      console.log(user)
-      console.log(token)
+      console.log("user", user)
+      console.log("token", token)
       return { ...token, ...user };
     },
 
-    // 세션 안에 user 정보가 들어감
+    // 세션 안에 토큰 정보가 들어감
     async session({ session, token }) {
       session.user = token;
+      console.log("session", session)
       return session;
     },
   },

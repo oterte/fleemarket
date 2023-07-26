@@ -41,6 +41,7 @@ const LoginPage = () => {
       >
         <h1 className="text-2xl">Login</h1>
         <Input
+          type="text"
           id="email"
           label="Email"
           disabled={isLoading}

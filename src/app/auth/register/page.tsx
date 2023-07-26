@@ -44,6 +44,7 @@ const RegisterPage = () => {
         <Input
           id="email"
           label="Email"
+          type="text"
           disabled={isLoading}
           register={register}
           errors={errors}
@@ -52,6 +53,7 @@ const RegisterPage = () => {
         <Input
           id="name"
           label="Name"
+          type="text"
           disabled={isLoading}
           register={register}
           errors={errors}
