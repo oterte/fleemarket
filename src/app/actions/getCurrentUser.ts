@@ -1,6 +1,6 @@
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
-
+import prisma from "@/lib/prismadb";
 
 // 해당 유저의 데이터 가져오기
 export async function getSession() {
@@ -14,7 +14,7 @@ export default async function getCurrentUser() {
     if (!session?.user?.email) {
       return null;
     }
-    const currentUser = await prisma?.user.findUnique({
+    const currentUser = await prisma.user.findUnique({
       where: {
         email: session.user.email,
       },
