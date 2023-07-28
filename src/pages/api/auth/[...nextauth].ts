@@ -1,4 +1,3 @@
-import { User } from '@prisma/client';
 import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -47,23 +46,21 @@ export const authOptions: NextAuthOptions = {
   ],
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60,
+  },
+  pages: {
+    signIn: "/auth/login",
   },
   jwt: {
     secret: process.env.JWT_SECRET,
     maxAge: 30 * 24 * 60 * 60,
   },
-  pages: {
-    signIn: "/auth/login",
-  },
   callbacks: {
     async jwt({ token, user }) {
-      console.log("user", user)
-      console.log("token", token)
+      console.log("user", user);
+      console.log("token", token);
       return { ...token, ...user };
     },
 
-    
     async session({ session, token }) {
       session.user = token;
       return session;

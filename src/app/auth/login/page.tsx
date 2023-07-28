@@ -1,17 +1,14 @@
 "use client";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import axios from "axios";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const {
     register,
     handleSubmit,
