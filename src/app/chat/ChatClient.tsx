@@ -13,7 +13,6 @@ interface ChatClientProps {
 }
 
 const ChatClient = ({ currentUser }: ChatClientProps) => {
-  console.log("currentUser///", currentUser)
   const [receiver, setReceiver] = useState({
     receiverId: "",
     receiverName: "",
@@ -38,6 +37,7 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
   const currentUserWithMessage = users?.find(
     (user: TUserWithChat) => user.email === currentUser?.email
   );
+  console.log(currentUserWithMessage)
 
   if (error) return <p>error!</p>;
   if (isLoading) return <p>Loading...</p>;

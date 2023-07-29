@@ -1,3 +1,4 @@
+'use client'
 import { TUserWithChat } from "@/types";
 import React from "react";
 import Input from "./Input";
@@ -13,11 +14,9 @@ interface ChatProps {
 }
 
 const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
-  console.log("currentUser", currentUser)
-  console.log("receiver.receiverName", receiver.receiverName)
-  // if(!receiver.receiverName || !currentUser){
-  //   return <div className="w-full h-full">123</div>
-  // }
+  if(!receiver.receiverName || !currentUser){
+    return <div className="w-full h-full"></div>
+  }
   console.log("currentUser", currentUser)
   console.log("receiver.receiverName", receiver.receiverName)
   return (

@@ -19,7 +19,6 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const products = await getProducts(searchParams);
   const currentUser = await getCurrentUser();
-  console.log(currentUser)
   return (
     <Container>
       {/* 카테고리 영역 */}
