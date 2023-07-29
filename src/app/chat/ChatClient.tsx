@@ -13,6 +13,7 @@ interface ChatClientProps {
 }
 
 const ChatClient = ({ currentUser }: ChatClientProps) => {
+  console.log("currentUser///", currentUser)
   const [receiver, setReceiver] = useState({
     receiverId: "",
     receiverName: "",
