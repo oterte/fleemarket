@@ -1,12 +1,14 @@
-import getCurrentUser from "@/app/actions/getCurrentUser";
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prismadb";
 
-export async function GET(requset: Request) {
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import prisma from "@/lib/prismadb";
+export async function GET(request: Request) {
   const currentUser = await getCurrentUser();
+
   if (!currentUser) {
     return NextResponse.error();
   }
+
   const users = await prisma.user.findMany({
     include: {
       conversations: {
@@ -25,6 +27,7 @@ export async function GET(requset: Request) {
       },
     },
   });
+
   return NextResponse.json(users);
 }
 
@@ -33,9 +36,10 @@ export async function POST(request: Request) {
   if (!currentUser) {
     return NextResponse.error();
   }
+
   const body = await request.json();
 
-  // 둘이 대화한 채팅이 있는경우
+  // 이미 둘이 대화를 한 conversation이 있는지 찾기
   const conversation = await prisma.conversation.findFirst({
     where: {
       AND: [
@@ -56,10 +60,11 @@ export async function POST(request: Request) {
       ],
     },
   });
+  console.log('conversation', conversation);
 
   if (conversation) {
+    // 이미 둘이 대화를 한 conversation가 있다면 메시지만 생성하기
     try {
-      // 기존 대화내역이 있는경우
       const message = await prisma.message.create({
         data: {
           text: body.text,
@@ -74,7 +79,9 @@ export async function POST(request: Request) {
       return NextResponse.json(error);
     }
   } else {
-    // 기존 대화내역이 없는경우
+    // 둘이 처음 대화하는 거라면 conversation과 message 둘 다 생성
+    //  conversation 생성 시 존재하는 유저 record와 연결
+    // https://www.prisma.io/docs/concepts/components/prisma-client/relation-queries#connect-an-existing-record
     const newConversation = await prisma.conversation.create({
       data: {
         senderId: body.senderId,
@@ -91,14 +98,15 @@ export async function POST(request: Request) {
         },
       },
     });
+
     try {
       const message = await prisma.message.create({
         data: {
           text: body.text,
           image: body.image,
+          conversationId: newConversation.id,
           senderId: body.senderId,
           receiverId: body.receiverId,
-          conversationId: newConversation.id,
         },
       });
       return NextResponse.json(message);

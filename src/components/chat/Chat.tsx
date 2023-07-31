@@ -3,6 +3,7 @@ import { TUserWithChat } from "@/types";
 import React from "react";
 import Input from "./Input";
 import ChatHeader from "./ChatHeader";
+import Message from "./Message";
 
 interface ChatProps {
   currentUser: TUserWithChat;
@@ -18,11 +19,13 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
   const conversation = currentUser?.conversations.find((conversation) => {
     conversation.users.find((user) => user.id === receiver.receiverId);
   });
+  console.log("현재 로그인한 유저..", currentUser.id)
+  console.log("채팅 받은사람...", receiver.receiverId)
+  console.log("로그인한 유저의 채팅내역...", currentUser.conversations)
+  console.log(conversation)
   if (!receiver.receiverName || !currentUser) {
     return <div className="w-full h-full"></div>;
   }
-  console.log("currentUser", currentUser);
-  console.log("receiver.receiverName", receiver.receiverName);
   return (
     <div className="w-full">
       <div>
@@ -38,7 +41,19 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
         />
       </div>
       <div className="flex flex-col gap-8 p-4 overflow-hidden h-[calc(100vh_-_60px_-_70px_-_80px)]">
-        {/* 채팅 메시지 */}
+        {conversation && conversation.messages.map((message) => {
+          return (
+            <Message key={message.id}
+              isSender={message.senderId === currentUser.id}
+              messageTest = {message.text}
+              messageImage={message.image}
+              receiverName={receiver.receiverName}
+              receiverImage={receiver.receiverImage}
+              senderImage={currentUser?.image}
+              time={message.createdAt}
+            />
+          )
+        })}
       </div>
       <div>
         <Input

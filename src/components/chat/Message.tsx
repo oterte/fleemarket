@@ -1,9 +1,37 @@
-import React from 'react'
+import React from "react";
+import Avatar from "../Avatar";
 
-const Message = () => {
-  return (
-    <div>Message</div>
-  )
+interface MessageProps {
+  isSender: boolean;
+  messageTest?: string | null;
+  messageImage?: string | null;
+  receiverName: string;
+  receiverImage: string;
+  senderImage: string | null;
+  time: Date;
 }
 
-export default Message
+const Message = ({
+  isSender,
+  messageTest,
+  messageImage,
+  receiverName,
+  receiverImage,
+  senderImage,
+  time,
+}: MessageProps) => {
+  return (
+    <div>
+      <div>
+        <Avatar src={senderImage && isSender ? senderImage : receiverImage}/>
+      </div>
+      <div>
+        <div>
+          <span>{isSender ? "You" : receiverName}</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Message;

@@ -5,7 +5,7 @@ import Contacts from "@/components/chat/Contacts";
 import { TUserWithChat } from "@/types";
 import { User } from "@prisma/client";
 import axios from "axios";
-import React, { use, useEffect, useState } from "react";
+import React, {  useState } from "react";
 import useSWR from "swr";
 
 interface ChatClientProps {
@@ -37,9 +37,9 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
   const currentUserWithMessage = users?.find(
     (user: TUserWithChat) => user.email === currentUser?.email
   );
-  console.log("users...", users)
-  console.log("currentUser...", currentUser)
-  console.log("currentUserWithMessage...",currentUserWithMessage)
+  // console.log("users...", users)
+  // console.log("currentUser...", currentUser)
+  // console.log("currentUserWithMessage...",currentUserWithMessage)
 
   if (error) return <p>error!</p>;
   if (isLoading) return <p>Loading...</p>;
