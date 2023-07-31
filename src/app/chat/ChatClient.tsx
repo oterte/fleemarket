@@ -37,7 +37,9 @@ const ChatClient = ({ currentUser }: ChatClientProps) => {
   const currentUserWithMessage = users?.find(
     (user: TUserWithChat) => user.email === currentUser?.email
   );
-  console.log(currentUserWithMessage)
+  console.log("users...", users)
+  console.log("currentUser...", currentUser)
+  console.log("currentUserWithMessage...",currentUserWithMessage)
 
   if (error) return <p>error!</p>;
   if (isLoading) return <p>Loading...</p>;
