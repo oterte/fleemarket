@@ -3,6 +3,7 @@ import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
+
 interface NavItemProps {
   mobile?: boolean;
   currentUser?: User | null;
@@ -16,10 +17,10 @@ function NavItem({ mobile, currentUser }: NavItemProps) {
       }`}
     >
       <li className="py-2 text-center border-b-4 cursor-pointer">
-        <Link href="/admin">Admin</Link>
+        <Link href="/products/upload">Upload</Link>
       </li>
       <li className="py-2 text-center border-b-4 cursor-pointer">
-        <Link href="/user">User</Link>
+        <Link href="/chat">Chat</Link>
       </li>
       {currentUser ? (
         <li className="py-2 text-center border-b-4 cursor-pointer">
