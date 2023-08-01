@@ -1,6 +1,6 @@
 "use client";
 import { TUserWithChat } from "@/types";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Input from "./Input";
 import ChatHeader from "./ChatHeader";
 import Message from "./Message";
@@ -16,13 +16,21 @@ interface ChatProps {
 }
 
 const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
+  // 렌더링 될 때마다 자동으로 스크롤 아래로 부드럽게
+  const messageEndRef = useRef<null | HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    messageEndRef?.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  });
+
   const conversation = currentUser?.conversations.find((conversation) =>
     conversation.users.find((user) => user.id === receiver.receiverId)
   );
-  console.log("현재 로그인한 유저..", currentUser.id);
-  console.log("채팅 받은사람...", receiver.receiverId);
-  console.log("로그인한 유저의 채팅내역...", currentUser.conversations);
-  console.log(conversation);
+
   if (!receiver.receiverName || !currentUser) {
     return <div className="w-full h-full"></div>;
   }
@@ -47,7 +55,7 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
               <Message
                 key={message.id}
                 isSender={message.senderId === currentUser.id}
-                messageTest={message.text}
+                messageText={message.text}
                 messageImage={message.image}
                 receiverName={receiver.receiverName}
                 receiverImage={receiver.receiverImage}
@@ -56,6 +64,7 @@ const Chat = ({ currentUser, receiver, setLayout }: ChatProps) => {
               />
             );
           })}
+          <div ref={messageEndRef}></div>
       </div>
       <div>
         <Input

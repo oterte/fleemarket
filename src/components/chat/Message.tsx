@@ -1,9 +1,10 @@
 import React from "react";
 import Avatar from "../Avatar";
+import { fromNow } from "@/lib/dayjs";
 
 interface MessageProps {
   isSender: boolean;
-  messageTest?: string | null;
+  messageText?: string | null;
   messageImage?: string | null;
   receiverName: string;
   receiverImage: string;
@@ -13,7 +14,7 @@ interface MessageProps {
 
 const Message = ({
   isSender,
-  messageTest,
+  messageText,
   messageImage,
   receiverName,
   receiverImage,
@@ -21,14 +22,31 @@ const Message = ({
   time,
 }: MessageProps) => {
   return (
-    <div>
+    <div
+      className={`grid w-full grid-cols-[40px_1fr] gap-3 mx-auto`}
+      style={{ direction: `${isSender ? "rtl" : "ltr"}` }}
+    >
       <div>
-        <Avatar src={senderImage && isSender ? senderImage : receiverImage}/>
+        <Avatar src={senderImage && isSender ? senderImage : receiverImage} />
       </div>
-      <div>
-        <div>
-          <span>{isSender ? "You" : receiverName}</span>
+      <div className="flex flex-col items-start justify-center">
+        <div className="flex items-center gap-2 mb-2 text-sm">
+          <span className="font-medium">{isSender ? "You" : receiverName}</span>
+          <span className="text-xs text-gray-500 opacity-80">
+            {fromNow(time)}
+          </span>
         </div>
+        {messageText && (
+          <div
+            className={`p-2 break-all text-white rounded-lg ${
+              isSender
+                ? "bg-orange-500 rounded-tr-none"
+                : "bg-gray-400 rounded-tl-none"
+            }`}
+          >
+            <p>{messageText}</p>
+          </div>
+        )}
       </div>
     </div>
   );
